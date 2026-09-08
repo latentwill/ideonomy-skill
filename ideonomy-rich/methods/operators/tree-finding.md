@@ -13,7 +13,7 @@ Walk the tree in four directions and record what you find:
 
 ## Why it works
 
-Trees enforce *exhaustion at a level*: when you list an idea's siblings, you're forced to ask whether your enumeration is complete. The empty branches in a tree are as informative as the full ones — they mark places where ideas could exist but don't (yet).
+Trees enforce *exhaustion at a level*: when you list an idea's siblings, you're forced to ask whether your enumeration is complete. The empty branches in a tree are as informative as the full ones — they identify questions about missing examples, impossible categories, or an incomplete classification.
 
 ## Pairing
 

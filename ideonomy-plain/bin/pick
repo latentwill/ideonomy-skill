@@ -6,16 +6,15 @@
 #   bin/pick --more             # bigger tuple: 3 operators, 2 organons, 5 dim-prompts
 #   bin/pick --less             # smaller: 1 operator, 1 organon, 2 dim-prompts
 #   bin/pick --print            # only print the picks; don't cat the bodies
-#   bin/pick --random-org       # seed the picker from random.org (network)
-#   bin/pick --seed N           # deterministic pick for a given seed (no mtime side-effects)
+#   bin/pick --seed N           # replay on the same Bash/awk and catalog
+#   bin/pick --cooldown-dir DIR # opt-in usage history, outside the skill
 #
-# Silent behavior (no flags): each picked file is `touch`ed at the end. The
-# picker weights against recently-touched files (1-hour half-life), so the
-# catalog rotates naturally within a session — a method picked five minutes
-# ago is much less likely to be picked again. --seed mode skips the touch
-# so reproducibility is preserved.
+# Default runs are read-only and offline. Draws may repeat. Cooldown adds a
+# recency penalty with a one-hour half-life; it does not measure idea quality.
+# Seeded runs ignore cooldown and do not write history.
 
 set -euo pipefail
+export LC_ALL=C
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 METHODS="$ROOT/methods"
@@ -26,17 +25,25 @@ ORG_N=1
 DIM_N=3
 PRINT_ONLY=0
 SEED=""
-SOURCE="local"
+COOLDOWN_DIR=""
+
+fail() { echo "error: $*" >&2; exit 2; }
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --print)       PRINT_ONLY=1; shift ;;
-    --random-org)  SOURCE="random.org"; shift ;;
-    --seed)        SEED="${2:-}"; shift 2 ;;
+    --seed)
+      [[ $# -ge 2 && "$2" =~ ^[0-9]{1,5}$ ]] || fail "--seed requires an integer from 0 to 32767"
+      SEED=$((10#$2))
+      (( SEED <= 32767 )) || fail "--seed requires an integer from 0 to 32767"
+      shift 2 ;;
+    --cooldown-dir)
+      [[ $# -ge 2 && -n "$2" && "$2" != --* ]] || fail "--cooldown-dir requires a directory"
+      COOLDOWN_DIR="$2"; shift 2 ;;
     --more)        OPS_N=3; ORG_N=2; DIM_N=5; shift ;;
     --less)        OPS_N=1; ORG_N=1; DIM_N=2; shift ;;
     -h|--help)
-      sed -n '2,16p' "$0" | sed 's/^# \{0,1\}//'
+      sed -n '2,14p' "$0" | sed 's/^# \{0,1\}//'
       exit 0
       ;;
     *)
@@ -49,16 +56,6 @@ done
 # Seed the bash RNG.
 if [[ -n "$SEED" ]]; then
   RANDOM=$SEED
-elif [[ "$SOURCE" == "random.org" ]]; then
-  ENTROPY=$(curl -fsS --max-time 5 \
-    "https://www.random.org/integers/?num=1&min=0&max=32767&col=1&base=10&format=plain&rnd=new" \
-    2>/dev/null || true)
-  if [[ -n "${ENTROPY:-}" && "$ENTROPY" =~ ^[0-9]+$ ]]; then
-    RANDOM=$ENTROPY
-  else
-    echo "warning: random.org request failed, falling back to local entropy" >&2
-    RANDOM=$(( $(date +%s) ^ $$ ))
-  fi
 else
   RANDOM=$(( $(date +%s) ^ $$ ))
 fi
@@ -76,13 +73,17 @@ NOW=$(date +%s)
 # Under --seed, weighting is disabled so picks stay reproducible.
 pick_n() {
   local dir="$1" n="$2" seed="$3"
-  if [[ ! -d "$dir" ]]; then return; fi
-  local weight_enabled=1
-  [[ -n "$SEED" ]] && weight_enabled=0
+  [[ -d "$dir" ]] || fail "missing method directory: $dir"
+  local weight_enabled=0
+  [[ -n "$COOLDOWN_DIR" && -z "$SEED" ]] && weight_enabled=1
   find "$dir" -type f -name '*.md' ! -name 'README.md' ! -name '_*' 2>/dev/null \
     | sort \
-    | while read -r f; do
-        m=$(stat "${STAT_MTIME[@]}" "$f" 2>/dev/null || echo 0)
+    | while IFS= read -r f; do
+        m=0
+        if (( weight_enabled )); then
+          state="$COOLDOWN_DIR/${f#"$METHODS/"}"
+          m=$(stat "${STAT_MTIME[@]}" "$state" 2>/dev/null || echo 0)
+        fi
         printf '%s\t%s\n' "$m" "$f"
       done \
     | awk -F'\t' -v seed="$seed" -v now="$NOW" -v half="$HALF_LIFE" -v weighted="$weight_enabled" '
@@ -93,16 +94,16 @@ pick_n() {
           if (weighted) {
             age   = now - mtime
             if (age < 0) age = 0
-            penalty = exp(-age / half)   # ~1 just-touched, ~0 long-cold
+            penalty = exp(-log(2) * age / half)   # ~1 just-touched, ~0 long-cold
             score   = rand() + penalty   # bigger = less likely to be picked
           } else {
             score = rand()               # pure rand under --seed
           }
-          print score "\t" file
+          printf "%.17g\t%s\n", score, file
         }
       ' \
     | sort -k1,1n \
-    | head -"$n" \
+    | awk -v n="$n" 'NR <= n { print } END { if (NR < n) { print "error: insufficient methods in category" > "/dev/stderr"; exit 2 } }' \
     | cut -f2-
 }
 
@@ -156,10 +157,11 @@ if (( ! PRINT_ONLY )); then
   cat_files "$DIMS"
 fi
 
-# --- mtime memory: touch the picked files so they cool off in future picks.
-# Skipped under --seed for reproducible picks during testing/demo.
-if [[ -z "$SEED" ]]; then
+# Store usage separately; never touch installed method files.
+if [[ -n "$COOLDOWN_DIR" && -z "$SEED" ]]; then
   printf '%s\n%s\n%s\n' "$OPS" "$ORGS" "$DIMS" | while IFS= read -r f; do
-    [[ -n "$f" ]] && touch "$f" 2>/dev/null || true
+    state="$COOLDOWN_DIR/${f#"$METHODS/"}"
+    mkdir -p "$(dirname "$state")"
+    touch "$state"
   done
 fi

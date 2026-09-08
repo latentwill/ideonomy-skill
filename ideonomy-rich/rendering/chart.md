@@ -28,17 +28,15 @@ Double-line outer frame for the chart proper. Single-line internal divisions. Th
 ## Conventions
 
 - `●` = canonical instance for that cell
-- `◇` = empty / no recognized concept (a typed prediction the chart is making)
+- `◇` = empty / no recognized concept (status unresolved; explain whether unknown, unexamined, or a candidate)
 - `★` = the cell that surprised, the pivot of the artifact
 - Column widths uniform unless one axis genuinely demands more
 - Cell text > column width: coin a single-word label, don't wrap
 
 ## Drama
 
-Charts are made to be read. The empty `◇` cells aren't gaps — they're the point. After the chart, call out the most interesting `◇` or `★` in a small rounded box `╭─╮` with an arrow back to its grid position. This is where the reader lands.
+Charts are made to be read. The empty `◇` cells invite inquiry; they do not prove missing inventions. After the chart, call out the most interesting `◇` or `★` in a small rounded box `╭─╮` with an arrow back to its grid position. This is where the reader lands.
 
-## Anti-patterns
+## Interpretation
 
-- All cells full → the dimensions aren't independent, or the territory is densely populated and the chart isn't surfacing anything new. Try different dimensions.
-- Diagonal pattern (full on diagonal, empty off-diagonal) → dimensions are correlated. Pick one.
-- One row full, others empty → that "row dimension" only varies in one value among real instances. Drop it as a dimension.
+Dense and sparse patterns can both be informative. Before dropping an axis, check whether the pattern reflects sampling, dependence, incompatibility, or the actual domain. A diagonal alone does not establish correlation, and a full chart does not establish redundancy. This diagram is illustrative, not a survey of meditation practices.

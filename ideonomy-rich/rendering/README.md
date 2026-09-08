@@ -16,7 +16,7 @@ If the picked organon has no recipe here, fall back to the principles in `../SKI
 
 ## Conventions shared across recipes
 
-- `◇` = empty cell / coinage opportunity / typed prediction
+- `◇` = unresolved cell (label its status in accompanying text)
 - `●` = canonical instance
 - `★` = the cell that drew the eye / pivotal insight
 - `▒` = partial / weakly-attested

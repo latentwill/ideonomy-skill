@@ -5,18 +5,18 @@ Find the *opposite* of an idea by negating its definitional properties.
 ## Procedure
 
 1. **Enumerate definitional properties.** What properties of this idea, if changed, would make it stop being the same idea? Those are its core/definitional properties. (Non-definitional properties — color, instance count, surface decoration — don't matter for negation.)
-2. **For each property, identify its opposite.** Note: the opposite of a property is rarely a single value. *Government* admits the opposites *no government, government by one, government by a minority, government by non-people, …*. Each is a candidate.
+2. **For each property, identify a contrast.** Distinguish absence, reversal, a contrary value, and substitution of the actor. “No government” negates existence; rule by one changes distribution; rule by machines changes the actor. These are different axes, not synonyms for logical NOT.
 3. **Return the set of negations.** Each negation gives a candidate opposite-idea. Examine each one. Most will be coherent ideas in their own right, sometimes ones that already exist with their own names.
 
 ## Notes from Grace Kind's essay
 
 - Ideonomic negation isn't single-valued like mathematical negation. It produces a *set* of opposites depending on which property you negate.
-- The operation is "partially involutional" — negating twice doesn't return the original idea; it returns a set that *contains* the original.
+- Kind proposes “partial involution” as an illustrative expectation: reversing a contrast can recover the starting idea. It is not a proven algebraic guarantee for arbitrary interpretations or model outputs.
 - Negation is a special case of substitution: it substitutes a *definitional* property, while ordinary substitution can swap any property.
 
 ## Worked example (Grace's, applied to *democracy*)
 
-Definitional properties of democracy include: there is a government; power is distributed; the people make law; the rulers are people; people are weighted equally.
+Kind's deliberately simplified working model of democracy uses properties such as: there is a government; power is distributed; the people make law; the rulers are people; people are weighted equally.
 
 Negating each:
 
@@ -29,4 +29,4 @@ Negating each:
 | People are politically strong | **Demoastheneia** (weakness of people) |
 | People weighted equally | **Weighted democracy** (some voices count more) |
 
-Each row is a coherent political form. Several already exist as recognized ideas; one (*demoastheneia*) is Grace's coinage for the negation that didn't have a name.
+These are conceptual contrasts, not equivalent constitutional categories. *Demoastheneia* is Kind's coinage; her essay explicitly warns through an example that an LLM can fabricate established usage for it. Label invented terms and do not infer historical use from a plausible definition.

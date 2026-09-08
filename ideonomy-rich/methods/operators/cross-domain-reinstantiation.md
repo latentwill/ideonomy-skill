@@ -11,11 +11,11 @@ Take an abstracted form of the idea and re-instantiate it in a *different* domai
    - **What does the new domain do about it?** Other domains have already worked out responses to the same structural problem. Those responses are candidate moves to bring back to the original domain.
    - **What does the new domain reveal about the original?** Translation forces you to name properties of the original that the original's vocabulary hides.
 
-## Why this is Gunkel's signature move
+## Grounding and limits
 
-Grace cites *proseases* as the canonical example: Gunkel applied negation to *disease* and looked for the structural opposite — a phenomenon where microorganisms in the body produce *positive* effects rather than negative ones. He named it *proseases* and predicted beneficial-microflora therapies decades before probiotics emerged as a recognized field.
+Gunkel's treatment of trees across fields, discussed in Kind's introduction, motivates attention to shared structure. This operational procedure is an adaptation, not a verbatim Gunkel algorithm.
 
-The re-instantiation step is what made this productive: not just naming the negation, but asking what *form* a beneficial-microflora practice would take, and what *practitioners* and *institutions* it would entail.
+List the source-to-target correspondences and at least one failure of the analogy. A name that sounds plausible in an unfamiliar field is not an established term. Mark invented transfers as hypotheses and check domain claims before relying on them. Kind presents *proseases* as a negation example; it does not establish historical priority for probiotics or demonstrate cross-domain transfer by itself.
 
 ## Pairing
 
@@ -25,4 +25,4 @@ Iterating across multiple domains (re-instantiate in N different fields, compare
 
 ## Tip: the domain you'd never reach for
 
-If your re-instantiations all come from the same one or two domains — say, you always reach for biology and economics — the operator is being short-circuited. Force yourself into a domain you have no fluency in. The translation will be clumsier, but the moves you find will be ones you couldn't have produced from your defaults.
+If your re-instantiations all come from the same one or two domains — say, you always reach for biology and economics — the operator is being short-circuited. Try a less familiar domain when it helps, but state uncertainty and do not invent facts to make the analogy fit.

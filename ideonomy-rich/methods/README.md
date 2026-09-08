@@ -1,10 +1,10 @@
 # Method catalog
 
-Browse-only index. The agent doesn't read this — it reads the picks from `bin/pick`. This file exists for humans to scan what's available.
+Browse-only index. Use this index for deliberate selection or when the picker cannot run. Read selected method files before applying them.
 
 ## Operators (`operators/`)
 
-The eight ideonomic operations, all traceable to Grace Kind's essays.
+Eight operational adaptations informed by Grace Kind and Patrick Gunkel; this inventory is not a closed historical canon. See [source distinctions](../references/sources.md).
 
 - **negation** — find core/definitional properties, identify each one's opposite, enumerate the opposite-set
 - **substitution** — hold all properties constant except one; swap that property's value
@@ -38,11 +38,11 @@ The structured artifacts Grace names in her intro, tree (which she identifies as
 - **notation** — the syntax IS the organon (music, chemistry, dance, regex)
 - **procedure** — ordered sequence where order is load-bearing (recipe, algorithm, ritual)
 - **state-machine** — nodes are states; edges are conditional transitions
-- **periodic-grid** — saturated chart where empty cells are *predictions*, not gaps
+- **periodic-grid** — model-based grid distinguishing unknowns, incompatibilities, and candidate hypotheses
 
 ## Dimension-prompts (`dimension-prompts/`)
 
-Question templates that surface an idea's dimensions. Grace describes the method ("identify the axes along which versions of this could vary"); this catalog gives 25 ready-to-pick prompts grouped loosely by family.
+Question templates that surface an idea's dimensions. Grace describes the method ("identify the axes along which versions of this could vary"); this catalog gives 29 ready-to-pick prompts grouped loosely by family.
 
 **Temporal** — longevity, rate, cyclicity, age, direction
 **Scale & magnitude** — size, cardinality, scope
@@ -53,6 +53,6 @@ Question templates that surface an idea's dimensions. Grace describes the method
 **Embodiment & knowability** — materiality, visibility, predictability
 **Complexity & polarity** — complexity, decomposability, polarity, distribution
 
-## A note on recipes
+## Combinations and records
 
-There is deliberately no `recipes/` directory — no saved-combinations layer. Combinations are what the picker produces by drawing operators × organons × dimension-prompts; freezing past combinations into named recipes pulls the picker toward defaults and works against the random-selection mechanism that makes the skill useful in the first place. Some historical recipe sketches survive under `examples/historical-recipes/` for browsing only; they are not part of the active catalog.
+The random catalog draws primitives, not fixed recipes. Historical sketches remain in `examples/historical-recipes/`. Keeping useful combinations as examples or reproducible experiments is compatible with exploration; do not force a new draw when the user wants to develop an existing organon.

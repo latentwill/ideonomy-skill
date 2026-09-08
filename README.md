@@ -1,154 +1,85 @@
-# Ideonomy — a skill for exploring an idea space
+# Ideonomy: explore, compare, investigate
 
-> *Ideas are natural phenomena. They have properties. They live along dimensions. They can be sliced, negated, recombined, and re-instantiated like any other natural object.*
-> — after Patrick Gunkel, via Grace Kind
+Two self-contained agent skills for exploring ideas through dimensions, transformations, and structured artifacts. Inspired by Patrick Gunkel's ideonomy and informed by [Grace Kind's essays](https://gracekind.net/writing/ideonomy/intro/).
 
-A pair of skills that turn any idea into a populated neighborhood of related ideas, by applying combinations of *ideonomic operators* — negate, substitute, combine, abstract, re-instantiate, find-the-tree — drawn from a randomized tuple at every invocation.
+The aim is an idea space you can inspect and develop: alternatives, relationships, revealing failures, and questions worth pursuing. Local random selection helps vary the approach. It does not guarantee novelty, non-repetition, or useful results.
 
-Every call picks a different combination of operators, organons, and dimensional prompts from a catalog of millions of distinct method-tuples. The agent doesn't get to fall back on its default brainstorming moves. That's the whole point.
-
-The two skills share one brain (operators × organons × dimension-prompts × picker × cooldown) and differ only in how they render the artifact:
-
-| Skill | Rendering | Best channel |
-|---|---|---|
-| **`ideonomy-plain`** | Plain Markdown lists, fenced-code-block tables, no Unicode box-drawing. | Anywhere — including SMS bridges, Telegram, plain Slack DMs, and any context where Unicode might mangle. |
-| **`ideonomy-rich`** | Performative ASCII art: figlet banners, Unicode box-drawing, density gradients, visible ideonomy-machinery layers (tuple legend, dimensions surfaced, operator-named dividers, ideonomy trail). | Terminals, READMEs, blog posts with monospace code blocks, fixed-width-font emails, ttyrec sessions. |
-
-Default to `ideonomy-plain`. Use `ideonomy-rich` when you know the medium can hold the art.
-
----
-
-## Try the rite
-
-```bash
-$ ~/.claude/skills/ideonomy-plain/bin/pick    # or ideonomy-rich; same picker
-```
-
-```
-=== IDEONOMY METHOD TUPLE (this invocation) ===
-
-OPERATORS:
-  - abstraction-lift
-  - cross-domain-reinstantiation
-
-ORGANONS:
-  - periodic-grid
-
-DIMENSION-PROMPTS:
-  - longevity
-  - autonomy
-  - reversibility
-
-==============================================
-
-[…bodies of each picked method file follow, ready for the agent to apply…]
-```
-
-Then ask your agent to apply the tuple to your idea. What you'll get back: five or ten unfamiliar variants of the idea, organized into the picked organon, with the picked operators visible in how the agent got there. Sometimes the result is brilliant. Sometimes it's nonsense. Both are useful — the nonsense tells you which dimensions of your idea were load-bearing.
-
-Run it ten times on the same idea. The expansions won't repeat.
-
----
-
-## The bargain
-
-Each skill folder is fully self-contained — drop either or both into any agent's `skills/` directory and they load. No installer, no symlinks, no build step.
-
-```bash
-git clone git@github.com:latentwill/ideonomy-skill.git
-cp -R ideonomy-skill/ideonomy-plain  <your-skills-folder>/
-cp -R ideonomy-skill/ideonomy-rich   <your-skills-folder>/   # optional
-```
-
-Common destinations:
-
-| Agent | Skills folder |
+| Skill | Output |
 |---|---|
-| Claude Code | `~/.claude/skills/` |
-| Cowork | `~/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin/<global-uuid>/<workspace-uuid>/skills/` |
-| Anything else with a Claude-style skill loader | wherever it puts `SKILL.md`-based skills |
+| `ideonomy-plain` | Portable lists and fenced ASCII tables; the default. |
+| `ideonomy-rich` | Monospace diagrams where arrangement and symbols convey relationships. |
 
-The agent picks `ideonomy-plain` vs `ideonomy-rich` automatically based on the channel — that's why both skills carry their own description. Default to `ideonomy-plain` if you only want one.
+Both use the same inquiry workflow and catalog: 8 operators, 17 organons, and 29 dimension prompts. An organon is a structured tool for thought, such as a list, chart, tree, or atlas. The catalog is a contemporary adaptation, not Gunkel's complete system.
 
-Pure bash + standard tools (`awk`, `sort`, `find`, `curl` only for the optional `--random-org` flag). `ideonomy-rich` additionally benefits from `figlet` / `boxes` / `toilet` if installed (`brew install figlet boxes toilet`), but always falls back to the public `asciified.thelicato.io` API.
+## Install
 
-> **Maintainer note:** the operator/organon/dimension-prompt catalog and `bin/pick` live in `ideonomy-plain/`. `ideonomy-rich/` carries duplicate copies so it can drop in alone — when you change a method file or the picker, update both folders. (`diff -r ideonomy-plain/methods ideonomy-rich/methods` to check.)
+Clone and copy either folder into your agent's supported skills directory:
 
----
-
-## What's inside
-
-```
-ideonomy-skill/
-├── ideonomy-plain/        ← portable rendering (default)
-│   ├── SKILL.md
-│   ├── bin/pick           ← the chooser
-│   ├── methods/           ← operators, organons, dimension-prompts
-│   └── examples/
-└── ideonomy-rich/         ← monospace-rich rendering
-    ├── SKILL.md
-    ├── bin/pick           ← thin wrapper → ../ideonomy-plain/bin/pick
-    └── rendering/         ← per-organon ASCII recipes
-                              (chart, tree, list, atlas, scale, cycle, dictionary)
+```bash
+git clone https://github.com/latentwill/ideonomy-skill.git
+mkdir -p .agents/skills
+cp -R ideonomy-skill/ideonomy-plain .agents/skills/
+# Optional:
+cp -R ideonomy-skill/ideonomy-rich .agents/skills/
 ```
 
-The catalog (single source of truth):
+The repository also includes a Claude Code marketplace manifest. Each skill folder carries its own picker, methods, and references and works without its sibling. The runtime needs Bash and standard Unix tools (`awk`, `sort`, `find`, `stat`, `sed`, `cut`, `date`). No network service or package installation is needed. Rich output may use an already installed `figlet`; otherwise it uses a plain title.
 
-| Path | Count | Role |
-|---|---|---|
-| `ideonomy-plain/methods/operators/` | 8 | The ideonomic operations: negate, substitute, combine, organon-construct, identify-dimensions, find-trees, abstraction-lift, cross-domain-reinstantiate |
-| `ideonomy-plain/methods/organons/` | 17 | Structured-artifact types — list, chart, graph, atlas, scale, dictionary, tree, plus matrix, cycle, spectrum, timeline, lattice, map, notation, procedure, state-machine, periodic-grid |
-| `ideonomy-plain/methods/dimension-prompts/` | 29 | Question templates that surface an idea's axes — longevity, polarity, autonomy, naturalness, reversibility, … |
-| `ideonomy-plain/bin/pick` | 1 | The chooser. ~1.7M distinct tuples in default mode; ~900M in `--more`. |
+## Try it
 
-There is deliberately no `recipes/` directory — no saved-combinations layer. Combinations are what the picker produces by drawing operators × organons × dimension-prompts; freezing past combinations into named recipes pulls the picker toward defaults and works against the random-selection mechanism that makes the skill useful in the first place. A handful of historical recipe sketches survive under `ideonomy-plain/examples/historical-recipes/` for browsing only; they are not part of the active catalog.
+Ask the agent:
 
-`bin/pick` flags (intentionally few): `--more` (bigger tuple), `--less` (smaller), `--print` (skip the bodies), `--random-org` (true randomness via random.org's HTTP API), `--seed N` (deterministic, for testing).
+> Explore alternatives to a neighborhood tool library without adding paid staff. Show the assumptions and the most useful next experiment.
 
----
+For a reproducible method selection from the repository root:
 
-## Silent self-improvement
+```bash
+bash ideonomy-plain/bin/pick --seed 42
+```
 
-**Mtime memory.** Every picked file gets `touch`ed at the end of the run. The picker weights against recently-touched files on a one-hour half-life, so within a single session the catalog *rotates* — methods you used five minutes ago are much less likely to come up again. The filesystem is the memory; no log file, no state directory.
+Or ask for a deliberate route:
 
-When a tuple produces a notably useful expansion, the agent may grow the catalog by promoting *down* into primitives — a new operator, organon, or dimension-prompt. Never up into a saved-combinations layer; that's the trap that re-introduces defaults.
+> Use a chart to cross custody models with access timing. Then develop the most revealing gap.
 
----
+See the [worked example](ideonomy-plain/references/worked-example.md). It illustrates a complete six-pair space, a revised dimension, and an analogy whose limits are explicit. It is an original demonstration, not a field-tested result.
 
-## The lineage
+## Picker
 
-**Patrick Gunkel** (1937–2017) — MIT futurist, originator of *ideonomy*: the science of ideas. He spent decades producing thousands of pages of monographs, lists, charts, and divisions cataloguing the structural anatomy of human thought. His original site lives at:
+| Flag | Behavior |
+|---|---|
+| none | Local draw: 2 operators, 1 organon, 3 dimension prompts; no writes. |
+| `--less` | 1 operator, 1 organon, 2 prompts. |
+| `--more` | 3 operators, 2 organons, 5 prompts. |
+| `--print` | Print selected names without method bodies. |
+| `--seed N` | Integer 0–32767. Replays selection on the same Bash/awk implementation and unchanged catalog; no history writes. |
+| `--cooldown-dir DIR` | Opt-in usage history in a workspace directory outside the installation. |
 
-→ **[ideonomy.mit.edu](https://ideonomy.mit.edu)**
+The former `--random-org` option has been removed. All selection is local. Invalid options and malformed seeds fail with exit code 2.
 
-The PDFs there are wild. Mendeleev-table-grade wild. Gunkel was working at a level of generality most people never visit, and the scanned monographs (Orange, Bright Green, Blue, Pastel Green, Yellow) are dense beyond reading. They are also the source. Browse them, get lost, come back changed.
+Cooldown adds a recency penalty to random ranking, decaying with a one-hour half-life. It does not guarantee non-repetition or learn which methods work. Seeded runs ignore history. Default and seeded draws leave installed files untouched.
 
-**Grace Kind** ([gracekind.net](https://gracekind.net)) — independent writer and researcher whose three essays translate Gunkel into something a present-day reader can actually use:
+There are 1,739,304 possible unordered default method combinations and 904,438,080 in `--more` for the current catalog. These are combinatorial counts, not claims that all combinations are reachable through the finite seed space or that they produce distinct ideas. Selection is not cryptographic. Catalog paths must not contain tabs or newlines; spaces are supported. Reproducibility across different Bash/awk versions is not promised.
 
-- [Introduction to Ideonomy](https://gracekind.net/writing/ideonomy/intro)
-- [Properties and Dimensions](https://gracekind.net/writing/ideonomy/propertiesanddimensions)
-- [Negation](https://gracekind.net/writing/ideonomy/negation)
+## Grounding and development
 
-This skill is built directly on her synthesis. Every operator, every organon she explicitly names, every worked example here traces to her writing. The dimension-prompts and recipes are original to this skill but follow the method she describes. **If you build on this, credit Grace and link her work.**
+Gunkel's [introduction](https://ideonomy.mit.edu/intro.html) connects generation with criticism and testing, and treats comprehensive coverage as an aspiration. This adaptation therefore keeps hypotheses distinct from evidence and reports the limits of an exploration. His [provisional subdivisions](https://ideonomy.mit.edu/division.html) also caution against treating a short operator list as a finished canon.
 
----
+Patrick Gunkel (1947–2017) originated ideonomy. Whitman Richards organized and hosted the work at MIT. The [archive](https://ideonomy.mit.edu/legacy-index.html) preserves the monographs and charts; Kind's writing makes a valuable route into them. See [source distinctions](ideonomy-plain/references/sources.md) for claims, provenance, and modern additions.
 
-## Why this exists
+The picker draws primitives; it does not draw historical recipes. Useful combinations can still be retained as examples and experiments. Follow-up work should refine the existing organon when appropriate. Catalog maintenance is explicit, not a silent side effect of using a skill.
 
-LLMs are powerful brainstormers, but left to their own devices they produce variations of the same handful of moves: list-the-obvious, scale-it-up, add-a-feature, remove-a-feature, give-it-an-app. The space they actually explore is small, and after a few invocations the user can predict the next response.
+## Maintenance and validation
 
-Ideonomy is a different shape: identify the *dimensions* of an idea, then operate on them. The space of *all the ideas adjacent to this one* is enormous and weird. The picker forces the model into corners of that space it would not otherwise visit. The corner you get sent to this run is not the corner you got sent to last run, because the picker doesn't repeat.
+Edit shared resources in `ideonomy-plain/`, then mirror `bin/`, `methods/`, and `references/` to `ideonomy-rich/`. Keep the two entrypoints distinct only where selection descriptions and rendering require it.
 
-The result, when it works, is the model producing variants you couldn't have produced — not because the model is smarter, but because it was forced into an angle of approach you wouldn't have asked for.
+```bash
+python3 -m unittest discover -s tests -v
+bash -n ideonomy-plain/bin/pick
+bash -n ideonomy-rich/bin/pick
+```
 
----
+Tests cover picker behavior and shared-resource consistency. The [behavioral evaluation cases](tests/behavioral-evaluation.md) assess the skill's actual outputs; passing script tests does not establish better ideation. Python is only needed to run tests.
 
 ## License
 
-Code (`bin/pick`): MIT.
-
-Prose (`SKILL.md`, `README.md`, `methods/**.md`, `examples/`): Creative Commons Attribution 4.0. Reuse, remix, redistribute — with credit to Grace Kind and Patrick Gunkel.
-
----
-
-<sub>*fnord*</sub>
+Code is MIT; repository prose is CC BY 4.0. Preserve attribution to Grace Kind and Patrick Gunkel and identify adaptations. See [LICENSE](LICENSE). Linked external sources retain their own terms.

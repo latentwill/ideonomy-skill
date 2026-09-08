@@ -2,7 +2,7 @@ This repository is dual-licensed.
 
 CODE
 ----
-All files under bin/ are licensed under the MIT License:
+Executable code under either skill’s bin/ directory and Python tests under tests/ are licensed under the MIT License:
 
   Copyright (c) 2026 the contributors of ideonomy-skill
 
@@ -24,7 +24,7 @@ All files under bin/ are licensed under the MIT License:
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
 
-PROSE (SKILL.md, README.md, methods/**.md, examples/**.md)
+PROSE (Markdown documentation, methods, references, examples, and rendering guides)
 ----------------------------------------------------------
 The prose in this repository adapts and extends Grace Kind's published essays
 on ideonomy at https://gracekind.net/writing/ideonomy/. It is licensed under

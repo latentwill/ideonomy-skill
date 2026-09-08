@@ -1,221 +1,52 @@
 ---
 name: ideonomy-rich
-description: Use when expanding an idea AND the output channel can render monospace cleanly — terminals, READMEs, blog posts with monospace code blocks, fixed-width-font emails, ttyrec sessions, the Claude Code transcript itself. Same primitives as `ideonomy-plain`, but renders the artifact as performative ASCII art with Unicode box-drawing, figlet banners, density gradients, and visible ideonomy-machinery layers (tuple legend, dimensions surfaced, operator-named dividers, ideonomy trail). If the channel might mangle Unicode (Telegram, SMS, plain Slack DMs), use `ideonomy-plain` instead.
+description: Explore an idea space using dimensions and transformations, rendered as meaningful monospace diagrams with visible relationships and derivation notes. Use when the user wants visual ideation and the channel supports fixed-width diagrams; otherwise prefer ideonomy-plain. Not for factual validation or execution of a chosen plan.
 ---
 
-# Ideonomy-Rich
+# Ideonomy: rich
 
-Sibling skill to `ideonomy-plain`. Same operators, organons, dimension-prompts, picker, cooldown. Different rendering policy.
+Build a visual instrument for exploring ideas. Spatial arrangement should explain relationships or reveal a gap; decoration is optional. This skill is self-contained and does not require its plain sibling.
 
-```
-╔═══════════════════════════════════════════════════════════════════╗
-║  ideonomy-plain  →  lowest-common-denominator: survives SMS       ║
-║  ideonomy-rich   →  highest-expression: feel ideas come alive     ║
-║                     in a monospace terminal                       ║
-╚═══════════════════════════════════════════════════════════════════╝
-```
+## Explore and refine
 
-If you're not sure which to pick, default to `ideonomy-plain`. Use this one when you know the medium can hold the art.
+An organon is a reusable instrument of inquiry: its structure should reveal relationships, gaps, and questions. Randomness is one way to choose a route through it, not evidence of novelty or a requirement to ignore the user's chosen method.
 
-## Core principle
+1. **Frame the subject.** State the seed idea, the purpose of this exploration, and constraints that must survive it. Start from a few concrete instances or properties. Use a working definition when the concept is contested; do not silently turn it into a universal definition.
+2. **Choose a route.** Honor a requested operator, format, or continuation. Otherwise run `bash /absolute/path/to/this-skill/bin/pick` using the directory containing this loaded `SKILL.md`. Read the returned method bodies. If execution is unavailable, choose from [the catalog](methods/README.md) and disclose manual selection; never pretend a draw occurred.
+3. **Make a bounded space.** Give dimensions meaningful values and apply the selected operators to them. For a cross-product, show the input sets and say whether the output is complete or sampled. Distinguish A-of-B from B-of-A when order changes meaning. Include an unfamiliar but relevant direction. If a picked method cannot illuminate the subject, explain the mismatch briefly and replace it deliberately instead of inventing relevance or repeatedly drawing until something comfortable appears.
+4. **Build the organon.** Preserve enough of each input-to-output transformation for the reader to inspect it: the changed property, structural relationship, or pair of inputs. Use short derivation notes, not a transcript of private reasoning. Label supplied facts, illustrative examples, hypotheses, and coinages where confusion is possible. A new name does not establish a new phenomenon.
+5. **Interrogate the result.** An empty cell may be unknown, unexamined, incompatible under stated assumptions, or a candidate for investigation; absence alone predicts nothing. Merge variants with the same mechanism. Retain a revealing failure when it exposes a dependency. For cross-domain transfers, identify both the preserved relationship and where the analogy breaks.
+6. **Leave the next inquiry better equipped.** Select promising directions for the user's purpose and explain the tradeoff. Give a disconfirming observation, small experiment, or concrete comparison for the strongest practical candidates. For art or fiction, use a scene, audience response, or aesthetic constraint instead of forcing a scientific test. When useful, revise one axis or recurse on one revealing gap; stop when the requested scope is met or further passes only rephrase existing ideas. End with a specific unresolved question or unexplored region.
 
-Same as `ideonomy-plain` — Patrick Gunkel's framework via Grace Kind. Ideas have *properties* varying along *dimensions*; expand by negating, substituting, combining, re-instantiating.
+Keep depth proportional to the request. A short request can receive a compact organon and one follow-up question to investigate; it does not need a six-part report. For a larger exploration, read [the worked example](references/worked-example.md).
 
-The difference is everything below: **render the organon as performative ASCII art**, not as plain bullets. Inspired by mahidalhan's *ascii-art-explainer*: composition teaches, motion shown, density is meaning, drama at the pivot.
+## Ground claims against an inspectable subject
 
-## How to invoke
+When a candidate makes a factual claim about an existing codebase, dataset, document corpus, or product, inspect that claim before presenting it as a finding. A proposal can be useful without being unprecedented; distinguish the proposal from its description of the current state.
 
-**Step 1 — pick a method tuple.**
+- **Name the claim:** what does the subject already contain or lack, according to the candidate?
+- **Inspect the subject:** search relevant source, schemas, documentation, or behavior for likely names and equivalent concepts, then read the surrounding implementation. Record the scope and relevant paths or queries.
+- **Match the conclusion to the evidence:** if the capability exists, identify it and explain whether the proposal changes its behavior, accessibility, or organization. If it is not found, say where you looked and what remains uncertain. Zero keyword matches alone do not prove absence. If access is inadequate, keep the candidate conditional.
 
-```bash
-# Locate pick (works for any installation method):
-PICK=$(find ~/.claude/plugins ~/.claude/skills -path '*/ideonomy-rich/bin/pick' -type f 2>/dev/null | head -1)
-bash "$PICK"
+Attach a concise evidence note to current-state claims. Distinguish “not found in the inspected files” from “does not exist.” Keep hypothetical alternatives available without presenting them as verified deficiencies. This checks descriptions of the subject; it does not require resolving every speculative idea before exploring it.
 
-# With flags: bash "$PICK" --more / --less / --print / --seed N
-```
+## Picker and continuity
 
-(Same picker, same catalog as `ideonomy-plain`. Each skill carries its own copy so it drops cleanly into any `skills/` folder on its own.)
+The picker offers `--less`, `--more`, `--print`, and `--seed N`. A seed replays selection for an unchanged catalog and the same Bash/awk implementation; it does not reproduce an LLM's response. Random draws can repeat. Selection uses a local pseudorandom generator and needs no network or external service.
 
-**Step 2 — work through the tuple in two passes.** Same internal pass as `ideonomy-plain`: dimension-prompts → operators → organon. The external pass is what changes.
+Default runs do not write files. For recency rotation, explicitly supply `--cooldown-dir /path/to/workspace/state`; this records method use outside the installed skill. Seeded runs ignore cooldown and never update it. Cooldown tracks usage, not quality or learning.
 
-**Step 3 — render the artifact in five visible layers.**
+On follow-ups, reuse the user's existing organon and examine an identified gap before starting over. Preserve useful combinations and outcomes in the user's work when requested; examples and reproducible experiments are legitimate records, even though the random catalog contains primitives. Suggest reusable catalog additions when warranted. Editing installed skills is a separate maintenance task, not a silent consequence of brainstorming.
 
-A defining feature of `ideonomy-rich`: **the brainstorming itself must be visible.** The reader should be able to see which operator produced which section, what dimensions the brainstorming explored, and — crucially — what was *not* surfaced. Reading the artifact equals watching the ideonomy happen. If the reader can't tell the artifact came out of the operators × organon × dim-prompts, you buried the machinery.
+## Grounding
 
-This does **not** mean reverting to procedural headers (`Phase A`, `Phase B`). The middle path: name the operator AND the specific move it made, side by side, in content-named language.
+This is a contemporary adaptation of Patrick Gunkel's ideonomy, informed by Grace Kind's accessible synthesis. Its operator inventory, random picker, status labels, and output conventions are implementation choices, not a canonical or complete Gunkel system. Read [sources and attribution](references/sources.md) when explaining the lineage or extending methods. Use the original sources for historical claims; verify domain claims separately when factual accuracy matters.
 
-### Layer 1 — title banner
+## Rich rendering
 
-Open with a figlet banner of the user's idea.
-
-```bash
-# Local C binary (preferred — installed via brew on this system)
-figlet -f slant "<idea>"
-figlet -f doom "<idea>"
-figlet -w 100 -f banner3 "<idea>"        # set max width
-
-# Coloured / filtered variant (live terminal only — emits ANSI)
-toilet -f pagga --metal "<idea>"
-
-# Remote fallback (no install needed; safe in any context)
-curl -s "https://asciified.thelicato.io/api/v2/ascii?text=<idea>&font=Slant"
-```
-
-Recommended fonts by mood:
-
-| Font       | Mood                        |
-|------------|-----------------------------|
-| `slant`    | clean, modern, default      |
-| `doom`     | bold, declarative           |
-| `big`      | wide, readable              |
-| `banner3`  | wide-display banner         |
-| `cyberlarge` | tech / systems theme      |
-| `gothic`   | dramatic, weighty           |
-| `small`    | subtitles, secondary banners |
-
-Frame the banner with hand-drawn `╔═╗` if you want a heavy outer border, or leave it bare if the font has weight. Note: the `boxes` CLI's default designs render ASCII `+--+` borders that clash with the Unicode aesthetic — prefer hand-drawn `╔═╗` framing or skip framing the banner.
-
-### Layer 2 — tuple legend
-
-Right after the banner, emit a compact block naming the tuple drawn for *this* artifact. The legend tells the reader "this is the brainstorming kit I used":
-
-```
-╭─ TUPLE ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─╮
-│  ◆ OPERATORS    substitution · negation                                │
-│  ◆ ORGANON      dictionary                                             │
-│  ◆ DIMENSIONS   decomposability · naturalness · visibility             │
-╰─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─╯
-```
-
-Use `╭─╮` rounded for the legend frame — soft, indicating "metadata, not the artifact itself."
-
-### Layer 3 — dimensions surfaced
-
-Before the operator outputs, show what each picked dimension-prompt revealed about the user's idea. This is where the reader sees the axes the brainstorming explored. Each dim gets a small block: its axis (with `●` / `○` marking the values that matter), a one-line summary of what surfaced, and `★` on the pivot dim if one stands out:
-
-```
-╭─ DIMENSIONS ──────────────────────────────────────────────────────────────────╮
-│                                                                               │
-│   decomposability   monolithic ●━━━━━━━━━━━━━━━━━━━○ decomposable             │
-│                     current is one big skill; alternatives split into         │
-│                     preflight + runtime + visible output                      │
-│                                                                               │
-│   naturalness       instruction-as-discipline ●━━━━━━○ artifact-as-discipline │
-│                     discipline baked into the visible output, not the prompt  │
-│                                                                               │
-│   visibility   ★    invisible ○━━━━━━━━━━━━━━━━━━━━━● visible                 │
-│                     0% (current) → footer-visible → fully laid out            │
-│                     ★ pivot — this is the user's stated complaint             │
-│                                                                               │
-╰───────────────────────────────────────────────────────────────────────────────╯
-```
-
-If the dim surfaced *nothing useful* for this idea, say so in one phrase rather than padding. Empty dims are a tell that the picker drew an unfit prompt; the reader benefits from seeing that.
-
-### Layer 4 — artifact body, with operator-named dividers
-
-The picked organon dictates the form. Each organon has a rendering recipe at `~/.claude/skills/ideonomy-rich/rendering/<organon>.md`. Core recipes: `chart`, `tree`, `list`, `atlas`, `scale`, `cycle`, `dictionary`. Other organons fall back to the principles below.
-
-**The organon's name appears in the artifact's main header** — `═══ ◆ DICTIONARY ◆ ═══` followed by the body, never `Phase C` or `Organon: dictionary`.
-
-When two or more operators were picked, divide their contributions with a divider that **names BOTH the operator AND the specific move**:
-
-```
-═══════════════════════════════════════════════════════════════════════════════════
-  ◆  NEGATION  ◆      negating "process is invisible" → "process leaves a trail"
-═══════════════════════════════════════════════════════════════════════════════════
-```
-
-The divider has three visible parts:
-
-1. The operator's name (`NEGATION`, `SUBSTITUTION`, `COMBINATION`, `ABSTRACTION-LIFT`, etc.)
-2. A one-line description of the *specific move* — what was negated, substituted, combined
-3. The arrow `→` making the move visible
-
-This is the difference that addresses the "where's the ideonomy?" complaint: the reader can see, at the divider, both the abstract operator and the concrete move it produced. `◆ OPPOSITES ◆` (content-only) hides the operator. `Phase B — Operator: Negation` (procedure-only) hides the move. `◆ NEGATION ◆ "X" → "Y"` shows both.
-
-### Layer 5 — ideonomy trail
-
-Every artifact ends with a structured trail footer. The trail recaps the brainstorming machinery and — most importantly — names what was *not* surfaced. The "not surfaced" line is where the user finds adjacent directions of inquiry.
-
-```
-[ideonomy · 4 moves · 3 dims · 1 organon · "vigil v2 redesign"]
-  dim · pivot:    visibility — invisible→visible is the user's complaint
-  ◆ negation:     "invisible by design"   → vigil-trail (Option A)
-  ◆ substitution: "self-grading"           → vigil-twin (Option B)
-  ◆ negation:     "comprehensive"          → vigil-slim (Option C)
-  ◆ substitution: "single draft → revise"  → vigil-tournament (Option D)
-  organon:        dictionary — 4 entries
-  not surfaced:   "do nothing", "kill vigil entirely", "make vigil charge per-pass"
-                  these are negations of meta-properties (existence, free-ness) the
-                  picker's dim-prompts didn't reach. worth a follow-up tuple.
-```
-
-Trail rules:
-
-- **Always last** in the artifact, in a single fenced code block, no trailing commentary
-- One line per move; each line names operator + the specific input/output
-- **The `not surfaced:` line is mandatory.** Even one phrase. This is the line that turns the trail from a recap into a generator — it tells the user where the next exploration could start.
-- The trail makes the brainstorming falsifiable: if no trail appears, no real ideonomy ran (you wrote a thoughtful answer that happened to dress up nice).
-
-## Rendering principles
-
-- **Composition teaches, not labels.** A flat box with text inside is wasted opportunity. Spatial arrangement, density, and motion should carry meaning. If your "diagram" is just labeled rectangles that could be bullet points, you've failed.
-- **Visual hierarchy through line weight.** Mix `┌─┐` (single, default), `╔═╗` (double, emphasis), and `╭─╮` (rounded, soft) within one artifact to mark primary / secondary / tertiary structure.
-- **Show motion.** `→ ↗ ↘ ↑ ↓ ═══▶ ··· >>>>>>` for flow, transformation, dependency. Static structures should still suggest direction where direction exists.
-- **Density is meaning.** `░ ▒ ▓ █` shows intensity, fill, certainty, age, frequency. Pick a semantic axis and use the gradient consistently within one diagram.
-- **Decorative emphasis sparingly.** `★ ◆ ● ○ ◇ ▲ ▼` for markers, status, importance. One symbol per role within a piece — `◇` always means *empty/coinage opportunity*, `●` always means *canonical instance*, etc.
-- **Drama at the pivot.** If the expansion has a key insight or a single empty cell that's the point, let composition draw the eye there — center it, frame it with `«   »` or `⟦  ⟧`, isolate it with whitespace. Make the reader land on it.
-
-## Character palette
-
-```
-Box (single):   ┌ ─ ┐ │ └ ┘ ├ ┤ ┬ ┴ ┼
-Box (double):   ╔ ═ ╗ ║ ╚ ╝ ╠ ╣ ╦ ╩ ╬
-Box (rounded):  ╭ ─ ╮ │ ╰ ╯
-Density:        ░ ▒ ▓ █ ▄ ▀ ▌ ▐
-Geometric:      ◆ ◇ ◈ ● ○ ◉ ■ □ ▲ △ ▼ ▽ ★ ☆ ✦ ✧
-Arrows:         → ← ↑ ↓ ↗ ↘ ↙ ↖ ⟶ ⟵ ═══▶ ◀═══ ↻ ↺
-Diagonals:      ╱ ╲
-Brackets:       ⟦ ⟧ ⟨ ⟩ « » ⌜ ⌝ ⌞ ⌟
-```
-
-## Constraints
-
-- **Width ≤ 100 chars per line.** Most terminals default to 80; 100 leaves a comfortable margin while letting wide art breathe. Anything wider wraps and turns ugly.
-- **Wrap large diagrams in fenced code blocks** (```` ``` ````). Even a monospace-friendly channel may proportional-font your prose; the fence guarantees alignment.
-- **One large pyfiglet banner per artifact** (the title). Use `small`/`mini` for sub-banners if needed; don't make every section a 12-line banner.
-- **No ANSI color in saved-text contexts.** `toilet --gay` looks great in a live terminal, looks like `\e[31m` garbage in a markdown file. Color belongs to live tty only.
-- **Box-drawing styles do not mix within a single diagram.** Pick one of `┌─┐` / `╔═╗` / `╭─╮` and stick with it; mixing `+--+` ASCII with `┌─┐` Unicode is the cardinal sin.
-
-## Red flags
-
-**Brainstorming-machinery invisibility (the big one):**
-
-- No tuple legend after the banner → reader can't see which kit was used.
-- No `DIMENSIONS` block → the axes the brainstorming explored are hidden.
-- Dividers say `◆ OPPOSITES ◆` (content-only, no operator named) → the *machinery* is invisible; this is the failure mode that prompted Layer 4 to require operator+move.
-- No ideonomy trail at the end → no falsifiability; the artifact is indistinguishable from a thoughtful answer that didn't use ideonomy at all.
-- Trail's `not surfaced:` line missing or padded with filler → the most generative line is the most likely to be skipped; treat its absence as a vigil-style "trail-without-vigil" tell.
-
-**Procedure leaking out (don't over-correct):**
-
-- A section titled `Phase A/B/C`, `Operator: <name>`, `Organon: <name>` → procedure leaking. The fix is *not* to drop the operator name from the divider; it's to pair it with the specific move (`◆ NEGATION ◆ "X" → "Y"`).
-
-**Aesthetic / formatting:**
-
-- Plain bullets and prose, no organon visually rendered → you skipped the rendering layer.
-- Figlet banner so wide it wraps in 100-char terminal → use `small` or shorten.
-- Decorative symbols (`★◆●`) sprayed without consistent semantic role → noise.
-- Visual hierarchy doesn't track conceptual hierarchy → most important = most visually emphatic.
-- Mixed `+--+` and `┌─┐` in one diagram → pick one style.
-- The artifact is just labels-in-boxes that could have been a bullet list → composition isn't teaching anything.
-
-## See also
-
-- `ideonomy-plain` — sibling skill, plain-text-portable. Same primitives, different rendering policy. Install it alongside this one if you want both available.
-- `rendering/` (within this skill) — per-organon ASCII recipes.
-- Hermes `ascii-art` skill — pyfiglet, cowsay, boxes, image-to-ascii. Install if missing.
-- mahidalhan/claude-hacks `ascii-art-explainer` — performative ASCII philosophy this skill inherits.
-- mahidalhan/claude-hacks `ascii-explainer` — diagnose-then-render approach for diagrams.
+- Render the organon in a fenced monospace block. Aim for 80 columns and stay within 100; split large diagrams into linked views. Use a labeled list when the requested channel cannot preserve the layout.
+- Give a compact legend for the actual methods, axes, and symbols used. Mark the input-to-output move beside its result or in a short trail. These notes make the artifact inspectable; they are not experimental validation.
+- Use arrows for directed relations and position for a stated dimension. Distinguish hierarchy from sequence and conceptual distance from measured distance. Do not imply numerical certainty with shading unless a scale is defined.
+- Read only the relevant recipe from [rendering/README.md](rendering/README.md). Its conventions are adaptable; meaningful structure takes priority over a banner or fixed number of layers.
+- Use local `figlet` only if available and useful, passing the title as safely quoted data. A plain title is the fallback. Do not send the user's idea to a remote decoration service or install tools just to render it.
+- Show the unexplored region and candidate status in text as well as symbols. A symbol for a gap never means that an instance must exist. Avoid ANSI escapes in saved artifacts.

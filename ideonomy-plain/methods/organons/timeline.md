@@ -5,7 +5,7 @@ A scale with time as the axis and events as marks. Distinct from a generic scale
 ## To timeline-ify an idea
 
 1. **Pick the time-window.** A day, a project, a career, a generation, a geological epoch. The window scales the granularity of marks.
-2. **Mark events.** Past events are facts (with positions). Future events are predictions, plans, or open positions.
+2. **Mark events.** Past entries can be documented events, disputed accounts, or reconstructions; label their status and date uncertainty. Future events are predictions, plans, or open positions.
 3. **Place the idea.** Is it an event (a single mark)? A duration (a span)? A trajectory (a curve through the timeline)? Different placements analyze different aspects.
 4. **Walk forward and backward.** Past: what made this idea possible? Future: what does this idea make possible? Both directions are part of the expansion.
 
