@@ -10,4 +10,4 @@ These are deliverable artifacts, not hidden scratch work. In Codex, put the comp
 
 For a randomly selected route, run `bin/pick`, read the chosen method bodies, and show the chosen names in the answer before applying them. The picker prints instructions for the exploration; it does not generate the user's exploration. Draws can repeat. If the user requests a follow-up, retain candidate IDs and develop the existing organon instead of automatically drawing again.
 
-For a user-requested summary, it is appropriate to return just the selected directions and their tradeoffs. For an exhaustive enumeration too large to fit inline, preserve the full artifact and disclose exact coverage as specified in [the skill](../SKILL.md#full-visible-output).
+For a user-requested summary, it is appropriate to return just the selected directions and their tradeoffs. For an exhaustive enumeration too large to fit inline, preserve the full artifact and disclose exact coverage as specified in [the skill](../SKILL.md#complete-readable-output).
