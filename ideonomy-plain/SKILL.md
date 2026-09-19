@@ -1,47 +1,47 @@
 ---
 name: ideonomy-plain
-description: Systematically explore an idea through dimensions, transformations, and structured collections of alternatives. Use for ideation, conceptual classification, unexpected connections, and continued exploration of an idea space. Default plain-text format; not a substitute for fact-checking or implementing an already chosen plan.
+description: Explore ideas through dimensions, transformations, and structured alternatives. Show complete scoped results in concise, readable text; use for ideation and continued exploration, not execution of a chosen plan.
 ---
 
 # Ideonomy: plain
 
-Explore how an idea can vary, what connects its variants, and what deserves investigation next. Default to this version unless the user wants a diagram suited to a monospace display.
+An organon is a structured instrument for exploring ideas: alternatives, relationships, gaps, and next inquiries.
 
-## Explore and refine
+## Scope and route
 
-An organon is a reusable instrument of inquiry: its structure should reveal relationships, gaps, and questions. Randomness is one way to choose a route through it, not evidence of novelty or a requirement to ignore the user's chosen method.
+- Preserve the user's goal, explicit non-negotiable constraints, requested methods, counts, axes, and output limits. On follow-ups, develop the existing organon and retain candidate IDs.
+- Match breadth to intent: **quick** means a few distinct mechanisms; **broad** covers materially different regions; **deep** examines dependencies, counterexamples, and revisions; **exhaustive** requires a bounded universe and enumeration. A short prompt does not imply shallow coverage. Without a cue, choose a useful range of distinct mechanisms, not a token minimum.
+- State scope and why it fits in one sentence. For finite spaces, show input sets, total combinations, and explored count; disclose sampling rules and omitted regions. Do not shrink scope merely to claim completeness. If breadth and length conflict, shorten each entry first; disclose any remaining tradeoff. Distinguish candidates by mechanism, not names or metaphors; group close variants without losing their differences. Keep explicit enumerations to the requested space; do not append extra cells or candidates.
+- Honor deliberate routes. Otherwise run `bash /absolute/path/to/this-skill/bin/pick` relative to this loaded file and read its returned bodies. Do not reread them or load the whole catalog. If execution is unavailable, disclose manual selection from [the catalog](methods/README.md). For missing names, consult its aliases. Replace an unsuitable draw deliberately with a brief reason, without repeated redraws.
 
-1. **Frame the subject.** State the seed idea, the purpose of this exploration, and constraints that must survive it. Start from a few concrete instances or properties. Use a working definition when the concept is contested; do not silently turn it into a universal definition.
-2. **Choose a route.** Honor a requested operator, format, or continuation. Otherwise run `bash /absolute/path/to/this-skill/bin/pick` using the directory containing this loaded `SKILL.md`. Read the returned method bodies. If execution is unavailable, choose from [the catalog](methods/README.md) and disclose manual selection; never pretend a draw occurred.
-3. **Make a bounded space.** Give dimensions meaningful values and apply the selected operators to them. For a cross-product, show the input sets and say whether the output is complete or sampled. Distinguish A-of-B from B-of-A when order changes meaning. Include an unfamiliar but relevant direction. If a picked method cannot illuminate the subject, explain the mismatch briefly and replace it deliberately instead of inventing relevance or repeatedly drawing until something comfortable appears.
-4. **Build the organon.** Preserve enough of each input-to-output transformation for the reader to inspect it: the changed property, structural relationship, or pair of inputs. Use short derivation notes, not a transcript of private reasoning. Label supplied facts, illustrative examples, hypotheses, and coinages where confusion is possible. A new name does not establish a new phenomenon.
-5. **Interrogate the result.** An empty cell may be unknown, unexamined, incompatible under stated assumptions, or a candidate for investigation; absence alone predicts nothing. Merge variants with the same mechanism. Retain a revealing failure when it exposes a dependency. For cross-domain transfers, identify both the preserved relationship and where the analogy breaks.
-6. **Leave the next inquiry better equipped.** Select promising directions for the user's purpose and explain the tradeoff. Give a disconfirming observation, small experiment, or concrete comparison for the strongest practical candidates. For art or fiction, use a scene, audience response, or aesthetic constraint instead of forcing a scientific test. When useful, revise one axis or recurse on one revealing gap; stop when the requested scope is met or further passes only rephrase existing ideas. End with a specific unresolved question or unexplored region.
+## Explore
 
-Keep depth proportional to the request. A short request can receive a compact organon and one follow-up question to investigate; it does not need a six-part report. For a larger exploration, read [the worked example](references/worked-example.md).
+Apply the chosen operators to concrete properties and meaningful axis values. Preserve ordered distinctions such as A-of-B versus B-of-A. Include an unfamiliar relevant direction; mark any adaptation of a dimension prompt. Record the changed property, input pair, or preserved relationship beside each result. Selected methods must visibly shape the exploration; replace an unsuitable form rather than use its name as decoration.
 
-## Ground claims against an inspectable subject
+Distinguish facts, examples, hypotheses, and coinages when ambiguous. Inspect existing code, documents, or products before claiming a capability is missing; attach the inspected scope and evidence. A failed keyword search is not proof of absence. For analogies, identify correspondences and where they break. Empty cells can be unknown, unexamined, incompatible, or investigable; they do not prove novelty.
 
-When a candidate makes a factual claim about an existing codebase, dataset, document corpus, or product, inspect that claim before presenting it as a finding. A proposal can be useful without being unprecedented; distinguish the proposal from its description of the current state.
+Creativity is a primary objective. Treat available materials, equipment, and familiar methods as starting points unless the user makes them non-negotiable. Explore bold departures and unfamiliar combinations; briefly name added requirements or assumptions instead of discarding an idea for needing more resources. When a hard boundary matters, label a boundary-changing thought experiment separately rather than present it as compliant. Preserve artistic or conceptual value independently of immediate feasibility. An exploration supplies groundwork for a plan; it need not already be one.
 
-- **Name the claim:** what does the subject already contain or lack, according to the candidate?
-- **Inspect the subject:** search relevant source, schemas, documentation, or behavior for likely names and equivalent concepts, then read the surrounding implementation. Record the scope and relevant paths or queries.
-- **Match the conclusion to the evidence:** if the capability exists, identify it and explain whether the proposal changes its behavior, accessibility, or organization. If it is not found, say where you looked and what remains uncertain. Zero keyword matches alone do not prove absence. If access is inadequate, keep the candidate conditional.
+## Complete, readable output
 
-Attach a concise evidence note to current-state claims. Distinguish “not found in the inspected files” from “does not exist.” Keep hypothetical alternatives available without presenting them as verified deficiencies. This checks descriptions of the subject; it does not require resolving every speculative idea before exploring it.
+Deliver the exploration in the **final answer**, not solely in tools, commentary, or an attachment. Compress wording, not coverage. Default shape, adaptable to the subject:
 
-## Picker and continuity
+1. One brief orientation: goal/constraints, selected methods and selection mode, axes/values, and scope. Combine overlapping information.
+2. One primary organon: each candidate appears once, with a stable ID, concrete idea, concise transformation, and key implication or uncertainty. Use a compact table or grouped list. For broad explorations, organize by distinct mechanisms; put close variants inside their group instead of a long flat list. Give each mechanism its practical implication, not just a name. Explain shared assumptions once; expand only cases where another detail changes understanding. Keep all declared cells, branches, or entries; mark incompatibilities and duplicate IDs rather than silently dropping them. Include intermediate results needed to understand later transformations, not private reasoning.
+3. A short assessment: strongest directions with tradeoffs, a discriminating check or creative probe, and the next unexplored region. Do not restate the inventory or repeat a test and disclaimer under every candidate.
 
-The picker offers `--less`, `--more`, `--print`, and `--seed N`. A seed replays selection for an unchanged catalog and the same Bash/awk implementation; it does not reproduce an LLM's response. Random draws can repeat. Selection uses a local pseudorandom generator and needs no network or external service.
+Before delivery, check consistency: do the described actions follow from the mechanism, and are required capabilities or resources explicit? For any proposed routine or prototype, reconcile step durations, totals, dependencies, and observation windows. Repair contradictions or mark what remains unresolved; do not claim a concept is ready to run when it is not. Keep this check unobtrusive and retain imaginative candidates with clear requirements rather than filtering for feasibility alone.
 
-Default runs do not write files. For recency rotation, explicitly supply `--cooldown-dir /path/to/workspace/state`; this records method use outside the installed skill. Seeded runs ignore cooldown and never update it. Cooldown tracks usage, not quality or learning.
+Before delivery, check both **scope adequacy** against the request and **coverage** against the declared space. A complete tiny sample does not fulfill a broad request. Summaries or shortlists replace the organon only when requested; otherwise put them after it. Avoid filler, decorative procedure reports, unexplained jargon, ellipses standing in for enumeration, and collapsed results.
 
-On follow-ups, reuse the user's existing organon and examine an identified gap before starting over. Preserve useful combinations and outcomes in the user's work when requested; examples and reproducible experiments are legitimate records, even though the random catalog contains primitives. Suggest reusable catalog additions when warranted. Editing installed skills is a separate maintenance task, not a silent consequence of brainstorming.
+If response limits prevent full inline delivery, preserve the complete Markdown artifact in the task's deliverable directory, link it, and identify exact inline and file-only ranges. For inline-only requests, use labeled parts and name the next range if another turn is necessary. Never call a partial view complete or ask whether the user wants the already-requested full version.
 
-## Grounding
+## References and runtime
 
-This is a contemporary adaptation of Patrick Gunkel's ideonomy, informed by Grace Kind's accessible synthesis. Its operator inventory, random picker, status labels, and output conventions are implementation choices, not a canonical or complete Gunkel system. Read [sources and attribution](references/sources.md) when explaining the lineage or extending methods. Use the original sources for historical claims; verify domain claims separately when factual accuracy matters.
+Read [the worked example](references/worked-example.md) only when useful. Consult [sources](references/sources.md) for lineage, coverage, or catalog extensions: this is a contemporary adaptation of Gunkel, informed by Grace Kind, not a complete canonical system.
 
-## Plain rendering
+Picker flags: `--less`, `--more`, `--print` (names only), `--seed N`, `--cooldown-dir DIR`. Tuple size is not output breadth. Seeds replay selection only with an unchanged catalog and Bash/awk runtime; draws may repeat. Default runs are offline and read-only. Cooldown is opt-in workspace usage history, not quality learning; seeded runs ignore it. Do not modify installed methods during exploration.
 
-Make the organon the main artifact, with headings about the subject. Prefer readable lists and short derivation notes. Use fenced ASCII tables when alignment matters; use labeled cells or lists for narrow or SMS channels. Avoid Unicode box drawing. The structure, candidate status, and unexplored region must remain understandable without special rendering.
+## Rendering
+
+Use readable Markdown lists or tables; fenced ASCII only when alignment helps. Keep meaning clear on narrow screens; avoid Unicode box drawing.

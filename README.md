@@ -9,7 +9,7 @@ The aim is an idea space you can inspect and develop: alternatives, relationship
 | `ideonomy-plain` | Portable lists and fenced ASCII tables; the default. |
 | `ideonomy-rich` | Monospace diagrams where arrangement and symbols convey relationships. |
 
-Both use the same inquiry workflow and catalog: 8 operators, 17 organons, and 29 dimension prompts. An organon is a structured tool for thought, such as a list, chart, tree, or atlas. The catalog is a contemporary adaptation, not Gunkel's complete system.
+Both use the same inquiry workflow and catalog: 36 operators, 25 organons, and 29 dimension prompts. An organon is a structured tool for thought, such as a list, chart, tree, or atlas. The catalog is a contemporary adaptation, not Gunkel's complete system.
 
 ## Install
 
@@ -43,6 +43,14 @@ Or ask for a deliberate route:
 
 See the [worked example](ideonomy-plain/references/worked-example.md). It illustrates a complete six-pair space, a revised dimension, and an analogy whose limits are explicit. It is an original demonstration, not a field-tested result.
 
+## Scope and concise delivery
+
+The requested breadth determines the exploration: quick favors distinct mechanisms, broad covers different regions, deep examines dependencies and revisions, and exhaustive requires a bounded enumeration. The skill checks both whether that scope answers the request and whether all promised results are delivered.
+
+Creativity remains central: available resources are a starting point unless explicitly fixed. Ambitious ideas may require additional equipment, materials, or methods; state those requirements without turning exploration into a production plan. A brief consistency check catches hidden dependencies and contradictory timings while preserving imaginative options.
+
+Show each candidate once in a compact organon with its transformation and key implication. Explain shared assumptions once, then end with a short assessment. Shorter wording must not silently reduce coverage. Main instructions and core operator bodies are compact; historical examples and source detail load only when useful. Picker flags change method counts, not the promised breadth of output.
+
 ## Picker
 
 | Flag | Behavior |
@@ -58,7 +66,7 @@ The former `--random-org` option has been removed. All selection is local. Inval
 
 Cooldown adds a recency penalty to random ranking, decaying with a one-hour half-life. It does not guarantee non-repetition or learn which methods work. Seeded runs ignore history. Default and seeded draws leave installed files untouched.
 
-There are 1,739,304 possible unordered default method combinations and 904,438,080 in `--more` for the current catalog. These are combinatorial counts, not claims that all combinations are reachable through the finite seed space or that they produce distinct ideas. Selection is not cryptographic. Catalog paths must not contain tabs or newlines; spaces are supported. Reproducibility across different Bash/awk versions is not promised.
+There are 57,550,500 possible unordered default method combinations and 254,373,210,000 in `--more` for the current catalog. These are combinatorial counts, not claims that all combinations are reachable through the finite seed space or that they produce distinct ideas. Selection is not cryptographic. Catalog paths must not contain tabs or newlines; spaces are supported. Reproducibility across different Bash/awk versions is not promised.
 
 ## Grounding and development
 
