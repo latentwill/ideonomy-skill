@@ -47,6 +47,8 @@ See the [worked example](ideonomy-plain/references/worked-example.md). It illust
 
 The requested breadth determines the exploration: quick favors distinct mechanisms, broad covers different regions, deep examines dependencies and revisions, and exhaustive requires a bounded enumeration. The skill checks both whether that scope answers the request and whether all promised results are delivered.
 
+Creativity remains central: available resources are a starting point unless explicitly fixed. Ambitious ideas may require additional equipment, materials, or methods; state those requirements without turning exploration into a production plan. A brief consistency check catches hidden dependencies and contradictory timings while preserving imaginative options.
+
 Show each candidate once in a compact organon with its transformation and key implication. Explain shared assumptions once, then end with a short assessment. Shorter wording must not silently reduce coverage. Main instructions and core operator bodies are compact; historical examples and source detail load only when useful. Picker flags change method counts, not the promised breadth of output.
 
 ## Picker
