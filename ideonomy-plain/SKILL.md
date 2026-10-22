@@ -19,7 +19,14 @@ Ideas have **properties** that vary along **dimensions**. To expand an idea, ide
 
 ```bash
 "$PROJECT_DIR"/bin/pick   # if installed in project
-~/.hermes/skills/ideonomy/bin/pick   # if installed as personal skill
+~/.hermes/skills/ideonomy/ideonomy-plain/bin/pick   # common personal install
+/var/lib/hermes/.hermes/skills/ideonomy/ideonomy-plain/bin/pick   # packaged Hermes install
+```
+
+If an older path like `~/.hermes/skills/ideonomy/bin/pick` fails with `No such file or directory`, locate the picker before giving up:
+
+```bash
+find ~/.hermes /var/lib/hermes/.hermes -path '*/ideonomy-plain/bin/pick' -type f 2>/dev/null | head -5
 ```
 
 The script prints the picks then concatenates the bodies of the selected method files. Read all of it.
@@ -64,6 +71,8 @@ Every picked element must visibly shape the output, but through what it *is*, no
 - A picked operator was held in your head but never visibly shaped a section of the output.
 - The output uses Unicode box-drawing characters or bare Markdown tables that will break in chat clients.
 - You produced one flowing prose answer with no organon at all — the structured artifact is the entire point.
+- You ran the picker, mentioned the dimensions, then generated a normal brainstorm/list. If the tuple picked a grid, matrix, tree, scale, cycle, atlas, etc., that structure must be the main artifact and every cell/node/stage must visibly instantiate the selected operator(s).
+- You treated dimension prompts as decorative axes rather than constraints. Dimension values must govern the generated ideas; if the organon expects saturation (for example a periodic grid), fill the full cross-product or explicitly mark missing cells as predictions/impossibilities.
 
 The operators-on-dimensions are bread. The organon is the plate the bread is served on.
 
@@ -120,6 +129,63 @@ If a useful expansion suggests a new method, promote *down* into one of the thre
 - The user signaled the expansion was useful — they built on it, asked for more, or kept exploring.
 
 If in doubt, don't add. The catalog is a vocabulary of moves, not a log of past invocations. The decision is yours, and the user doesn't need to know it happened.
+
+## Course and workshop naming
+
+When the user is naming a course, workshop, or live event, use ideonomy to expand the *promise* into a few distinct naming families rather than mutating one generic title.
+
+- Distinguish **concept buckets** from **literal title words**. If the user gives you buckets like “Arc / Rhythm / Vector,” treat them as directions, not candidate names, unless they explicitly want them in the title.
+- Keep the **subtitle close to the core promise** and, when format matters, say **live workshop** plainly in the subtitle.
+- Prefer short, brandable shells like **Blueprint, Lab, Academy, Method, Workshop, Bootcamp** and let the subtitle do the explanatory work.
+- For playful titles, use action trios or rhythm-based sequences, but keep them tied to a useful outcome.
+
+See `references/course-naming-patterns.md` for the session-specific pattern bank.
+
+## Session examples
+
+- See `references/business-ideation-examples.md` for compact examples of using periodic grids and trees to generate business ideas and web-design-agency lead generation ideas.
+- See `references/multi-source-aesthetic-prompts.md` for a worked example combining three aesthetic source materials into a chart, then generating natural-language prompts from the chart cells.
+- See `references/naming-remix-notes.md` for a session-derived naming remix pattern: concept buckets vs literal title words, plus the title-shell patterns that worked.
+
+## Naming/remix pitfall
+
+When the user is doing naming work, watch for concept labels that are only *design buckets* (for example Arc, Rhythm, Vector). Do not surface those labels verbatim as final title candidates unless the user explicitly asks for them. Instead, translate the bucket into a fresh title family that matches the research patterns and the user's tone.
+
+If the user says to "drop the guide words," strip the scaffolding and return the concrete candidate names only.
+
+See `references/naming-style-remap.md` for the session-specific naming-remix note.
+
+## Output style: translating ideonomy into prompts
+
+When the user asks you to turn ideonomy output (chart cells, re-instantiations, variants) into prompts — for image generators, design briefs, or creative direction — **write natural language prose, not keyword jamming.**
+
+## Naming output: concept buckets vs. final titles
+
+When ideonomy is used for naming work, be careful not to confuse **concept buckets** with **literal title words**. A user may give you directional buckets (for example, a set of three creative lenses) that are meant to guide the search space, not appear verbatim in the final title.
+
+Rules of thumb:
+- Treat the bucket words as internal scaffolding unless the user explicitly says to use them in the title.
+- Convert the research into real title families the audience already recognizes (for example, Blueprint, Lab, Academy, Method/System, Workshop/Bootcamp).
+- Keep the title short and brandable; let the subtitle carry the core promise.
+- If the user wants a live event, include that in the subtitle or format line (for example, "A live workshop for...").
+- If the user likes playful naming, preserve that energy in the title itself and keep the subtitle plain and outcome-first.
+
+See `references/naming-remix-notes.md` for a compact session-derived example.
+
+## Naming / remix notes
+
+- See `references/naming-remix-engine.md` for the session-derived naming engine and user constraints.
+- When the user supplies labels like `Arc`, `Rhythm`, or `Vector` as concept buckets, treat them as internal design directions only. Do **not** place them verbatim into final title options unless the user explicitly asks for that.
+- If the user asks to "drop the guide words" or "give me more data," surface the research patterns first, then generate names from those patterns; avoid filler preambles.
+- Prefer actual naming families observed in the research (e.g. Blueprint, Lab, Academy, Method/Protocol, Workshop/Bootcamp) over freshly invented wrapper words when the task is course/workshop naming.
+
+This is a firm user preference. Keywords are:
+- `photocopy grain CRT scanline neon gradient recursive fractal zine` ← ✗ jamming
+- *"A brand mark that looks like it was drawn with a ballpoint pen on paper, then run through a 1970s photocopier until the blacks bloomed and the whites went grey."* ← ✓ natural language
+
+Each prompt should be a short descriptive paragraph that paints a coherent picture. Avoid tag-style lists separated by commas or slashes. Let the scene emerge from whole sentences, not fragmented descriptors.
+
+For naming work, treat any user-supplied labels as *concept buckets* unless the user explicitly says they are literal title words. Convert the buckets into actual title families, then generate final names from those families rather than echoing the buckets back verbatim.
 
 ## When NOT to use
 

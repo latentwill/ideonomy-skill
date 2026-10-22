@@ -212,6 +212,7 @@ Brackets:       ⟦ ⟧ ⟨ ⟩ « » ⌜ ⌝ ⌞ ⌟
 
 - `~/.claude/skills/ideonomy-plain/SKILL.md` — sibling, plain-text-portable. Same primitives, different rendering policy.
 - `~/.claude/skills/ideonomy-rich/rendering/` — per-organon recipes.
+- `references/style-lane-art-examples.md` — workflow for turning ideation into browser-previewable art examples.
 - Hermes `ascii-art` skill — pyfiglet, cowsay, boxes, image-to-ascii. Install if missing.
 - mahidalhan/claude-hacks `ascii-art-explainer` — performative ASCII philosophy this skill inherits.
 - mahidalhan/claude-hacks `ascii-explainer` — diagnose-then-render approach for diagrams.
